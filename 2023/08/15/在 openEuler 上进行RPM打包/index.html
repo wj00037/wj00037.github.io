@@ -16,21 +16,24 @@
   <meta name="author" content="j30049383">
   <meta name="keywords" content="">
   
-    <meta name="description" content="准备工作 安装 openEuler 和 WSL参考 https:&#x2F;&#x2F;www.openeuler.org&#x2F;zh&#x2F;blog&#x2F;waaagh&#x2F;openEuler-DE-in-WSL.html 的过程，一直到“初始化WSL环境”这一步即可。  安装 rpmbuild 1sudo -E yum install rpmdevtools 创建工作目录 1rpmdev-setuptree  这一步执行完后会在用户家">
+    <meta name="description" content="准备工作 安装 openEuler在应用商店下载即可。  安装 rpmbuild 1yum install rpmdevtools 创建工作目录 1rpmdev-setuptree  这一步执行完后会在用户家目录下生成一个 rpmbuild 文件，其包含五个子目录，这将是 RPM 打包过程的“工作车间”。   安装git   预备知识 打包过程的“工作车间”   BUILD：源码包被解压至此，并在">
 <meta property="og:type" content="article">
-<meta property="og:title" content="在openEuler WSL上进行RPM打包">
-<meta property="og:url" content="http://wj00037.github.io/2023/08/15/%E5%9C%A8openEuler%20WSL%E4%B8%8A%E8%BF%9B%E8%A1%8CRPM%E6%89%93%E5%8C%85/index.html">
+<meta property="og:title" content="在 openEuler 进行RPM打包">
+<meta property="og:url" content="http://wj00037.github.io/2023/08/15/%E5%9C%A8%20openEuler%20%E4%B8%8A%E8%BF%9B%E8%A1%8CRPM%E6%89%93%E5%8C%85/index.html">
 <meta property="og:site_name" content="The Blog of j30049383">
-<meta property="og:description" content="准备工作 安装 openEuler 和 WSL参考 https:&#x2F;&#x2F;www.openeuler.org&#x2F;zh&#x2F;blog&#x2F;waaagh&#x2F;openEuler-DE-in-WSL.html 的过程，一直到“初始化WSL环境”这一步即可。  安装 rpmbuild 1sudo -E yum install rpmdevtools 创建工作目录 1rpmdev-setuptree  这一步执行完后会在用户家">
+<meta property="og:description" content="准备工作 安装 openEuler在应用商店下载即可。  安装 rpmbuild 1yum install rpmdevtools 创建工作目录 1rpmdev-setuptree  这一步执行完后会在用户家目录下生成一个 rpmbuild 文件，其包含五个子目录，这将是 RPM 打包过程的“工作车间”。   安装git   预备知识 打包过程的“工作车间”   BUILD：源码包被解压至此，并在">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-08-15T02:21:16.000Z">
-<meta property="article:modified_time" content="2023-08-15T07:46:52.040Z">
+<meta property="article:modified_time" content="2023-09-22T02:55:06.263Z">
 <meta property="article:author" content="j30049383">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="rpm">
+<meta property="article:tag" content="openEuler">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>在openEuler WSL上进行RPM打包 - The Blog of j30049383</title>
+  <title>在 openEuler 进行RPM打包 - The Blog of j30049383</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -196,7 +199,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="在openEuler WSL上进行RPM打包"></span>
+            <span id="subtitle" data-typed-text="在 openEuler 进行RPM打包"></span>
           
         </div>
 
@@ -219,7 +222,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.9k 字
+          2.8k 字
         
       </span>
     
@@ -230,7 +233,7 @@
         
         
         
-          25 分钟
+          24 分钟
         
       </span>
     
@@ -267,23 +270,23 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">在openEuler WSL上进行RPM打包</h1>
+            <h1 id="seo-header">在 openEuler 进行RPM打包</h1>
             
             
               <div class="markdown-body">
                 
                 <h1 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h1><ol>
-<li><p>安装 openEuler 和 WSL<br>参考 <a target="_blank" rel="noopener" href="https://www.openeuler.org/zh/blog/waaagh/openEuler-DE-in-WSL.html">https://www.openeuler.org/zh/blog/waaagh/openEuler-DE-in-WSL.html</a> 的过程，一直到“初始化WSL环境”这一步即可。</p>
+<li><p>安装 openEuler<br>在应用商店下载即可。</p>
 </li>
 <li><p>安装 rpmbuild</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmake">sudo -E yum <span class="hljs-keyword">install</span> rpmdevtools<br></code></pre></td></tr></table></figure></li>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmake">yum <span class="hljs-keyword">install</span> rpmdevtools<br></code></pre></td></tr></table></figure></li>
 <li><p>创建工作目录</p>
 <figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">rpmdev-setuptree</span><br></code></pre></td></tr></table></figure>
 <blockquote>
 <p>这一步执行完后会在用户家目录下生成一个 rpmbuild 文件，其包含五个子目录，这将是 RPM 打包过程的“工作车间”。</p>
 </blockquote>
 </li>
-<li><p>最好安装git</p>
+<li><p>安装git</p>
 </li>
 </ol>
 <h1 id="预备知识"><a href="#预备知识" class="headerlink" title="预备知识"></a>预备知识</h1><ol>
@@ -314,7 +317,7 @@
 <li><p>若未安装 git，可在“克隆&#x2F;下载”选择“下载zip”，手动将压缩包下载到本地，然后在文件资源管理器的路径中输入 <code>\\wsl$</code>，直接访问 WSL 中的文件，然后将源码包解压缩到 rpmbuild&#x2F;SOURCES&#x2F; 目录下。（不推荐用这种方法下载，但是直接访问 WSL 中的文件有助于后面的理解）</p>
 </li>
 </ul>
-<h1 id="二、安装依赖包"><a href="#二、安装依赖包" class="headerlink" title="二、安装依赖包"></a>二、安装依赖包</h1><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">sudo -E dnf builddep xxx.<span class="hljs-keyword">spec</span><br></code></pre></td></tr></table></figure>
+<h1 id="二、安装依赖包"><a href="#二、安装依赖包" class="headerlink" title="二、安装依赖包"></a>二、安装依赖包</h1><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">dnf builddep xxx.<span class="hljs-keyword">spec</span><br></code></pre></td></tr></table></figure>
 <blockquote>
 <p>在构建一个 RPM 包之前，需要先安装其所需的依赖包，这些依赖会在 .spec 文件中的 requires 中标明。</p>
 </blockquote>
@@ -351,6 +354,17 @@
               <div class="post-metas my-3">
   
   
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Linux/" class="print-no-link">#Linux</a>
+      
+        <a href="/tags/rpm/" class="print-no-link">#rpm</a>
+      
+        <a href="/tags/openEuler/" class="print-no-link">#openEuler</a>
+      
+    </div>
+  
 </div>
 
 
@@ -359,8 +373,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>在openEuler WSL上进行RPM打包</div>
-      <div>http://wj00037.github.io/2023/08/15/在openEuler WSL上进行RPM打包/</div>
+      <div>在 openEuler 进行RPM打包</div>
+      <div>http://wj00037.github.io/2023/08/15/在 openEuler 上进行RPM打包/</div>
     </div>
     <div class="license-meta">
       
