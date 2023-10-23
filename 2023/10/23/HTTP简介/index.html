@@ -16,24 +16,22 @@
   <meta name="author" content="j30049383">
   <meta name="keywords" content="">
   
-    <meta name="description" content="本篇文章仅针对 Ubuntu 上的 Docker Engine 的安装与 docker compose 的使用，若您有其他需求可以移步 Docker 官网https:&#x2F;&#x2F;docs.docker.com&#x2F;。  在Ubuntu上安装 Docker Engine配置 apt 仓库 更新apt12sudo apt-get updatesudo apt-get install ca-certificates">
+    <meta name="description" content="HTTP 是什么HTTP（HyperText Transfer Protocol），即超文本传输协议，用于客户端和服务器之间的通信。  超文本：一种通过超链接将文本、图像、视频、音频等资源进行关联的文本形式，广泛应用于万维网等领域，为用户提供了非线性的信息浏览和导航方式。  常用请求方法 GET：请求获取指定资源，不应该进行修改 POST：向服务器提交数据，常用于创建新资源 PUT：向服务器发送数">
 <meta property="og:type" content="article">
-<meta property="og:title" content="使用docker compose up启动本地环境">
-<meta property="og:url" content="http://wj00037.github.io/2023/09/22/%E4%BD%BF%E7%94%A8docker-compose-up%E5%90%AF%E5%8A%A8%E6%9C%AC%E5%9C%B0%E7%8E%AF%E5%A2%83/index.html">
+<meta property="og:title" content="HTTP简介">
+<meta property="og:url" content="http://wj00037.github.io/2023/10/23/HTTP%E7%AE%80%E4%BB%8B/index.html">
 <meta property="og:site_name" content="The Blog of j30049383">
-<meta property="og:description" content="本篇文章仅针对 Ubuntu 上的 Docker Engine 的安装与 docker compose 的使用，若您有其他需求可以移步 Docker 官网https:&#x2F;&#x2F;docs.docker.com&#x2F;。  在Ubuntu上安装 Docker Engine配置 apt 仓库 更新apt12sudo apt-get updatesudo apt-get install ca-certificates">
+<meta property="og:description" content="HTTP 是什么HTTP（HyperText Transfer Protocol），即超文本传输协议，用于客户端和服务器之间的通信。  超文本：一种通过超链接将文本、图像、视频、音频等资源进行关联的文本形式，广泛应用于万维网等领域，为用户提供了非线性的信息浏览和导航方式。  常用请求方法 GET：请求获取指定资源，不应该进行修改 POST：向服务器提交数据，常用于创建新资源 PUT：向服务器发送数">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-09-22T07:57:01.000Z">
-<meta property="article:modified_time" content="2023-10-16T08:16:18.005Z">
+<meta property="article:published_time" content="2023-10-23T12:22:39.000Z">
+<meta property="article:modified_time" content="2023-10-23T12:23:51.170Z">
 <meta property="article:author" content="j30049383">
-<meta property="article:tag" content="Linux">
-<meta property="article:tag" content="docker">
-<meta property="article:tag" content="docker compose">
+<meta property="article:tag" content="HTTP">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>使用docker compose up启动本地环境 - The Blog of j30049383</title>
+  <title>HTTP简介 - The Blog of j30049383</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -199,7 +197,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="使用docker compose up启动本地环境"></span>
+            <span id="subtitle" data-typed-text="HTTP简介"></span>
           
         </div>
 
@@ -210,8 +208,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-09-22 15:57" pubdate>
-          2023年9月22日 下午
+        <time datetime="2023-10-23 20:22" pubdate>
+          2023年10月23日 晚上
         </time>
       </span>
     
@@ -222,7 +220,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.9k 字
+          1.7k 字
         
       </span>
     
@@ -233,7 +231,7 @@
         
         
         
-          17 分钟
+          15 分钟
         
       </span>
     
@@ -270,51 +268,57 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">使用docker compose up启动本地环境</h1>
+            <h1 id="seo-header">HTTP简介</h1>
             
             
               <div class="markdown-body">
                 
-                <p>本篇文章仅针对 Ubuntu 上的 Docker Engine 的安装与 docker compose 的使用，若您有其他需求可以移步 Docker 官网<a target="_blank" rel="noopener" href="https://docs.docker.com/">https://docs.docker.com/</a>。</p>
-<hr>
-<h1 id="在Ubuntu上安装-Docker-Engine"><a href="#在Ubuntu上安装-Docker-Engine" class="headerlink" title="在Ubuntu上安装 Docker Engine"></a>在Ubuntu上安装 Docker Engine</h1><h2 id="配置-apt-仓库"><a href="#配置-apt-仓库" class="headerlink" title="配置 apt 仓库"></a>配置 apt 仓库</h2><ol>
-<li>更新<code>apt</code><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs routeros">sudo apt-<span class="hljs-built_in">get</span> update<br>sudo apt-<span class="hljs-built_in">get</span> install ca-certificates curl gnupg<br></code></pre></td></tr></table></figure></li>
-<li>添加 Docker 官方密钥<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs awk">sudo install -m <span class="hljs-number">0755</span> -d <span class="hljs-regexp">/etc/</span>apt/keyrings<br>curl -fsSL https:<span class="hljs-regexp">//</span>download.docker.com<span class="hljs-regexp">/linux/u</span>buntu<span class="hljs-regexp">/gpg | sudo gpg --dearmor -o /</span>etc<span class="hljs-regexp">/apt/</span>keyrings/docker.gpg<br>sudo chmod a+r <span class="hljs-regexp">/etc/</span>apt<span class="hljs-regexp">/keyrings/</span>docker.gpg<br></code></pre></td></tr></table></figure></li>
-<li>配置仓库<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs gradle">echo \<br>  <span class="hljs-string">&quot;deb [arch=&quot;</span>$(dpkg --<span class="hljs-keyword">print</span>-architecture)<span class="hljs-string">&quot; signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \</span><br><span class="hljs-string">  &quot;</span>$(. <span class="hljs-regexp">/etc/</span>os-release &amp;&amp; echo <span class="hljs-string">&quot;$VERSION_CODENAME&quot;</span>)<span class="hljs-string">&quot; stable&quot;</span> | \<br>  sudo tee <span class="hljs-regexp">/etc/</span>apt<span class="hljs-regexp">/sources.list.d/</span>docker.list &gt; <span class="hljs-regexp">/dev/</span><span class="hljs-keyword">null</span><br></code></pre></td></tr></table></figure></li>
-<li>更新 apt 包<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">sudo apt-<span class="hljs-keyword">get</span> <span class="hljs-keyword">update</span><br></code></pre></td></tr></table></figure></li>
-</ol>
-<h2 id="安装-Docker-Engine"><a href="#安装-Docker-Engine" class="headerlink" title="安装 Docker Engine"></a>安装 Docker Engine</h2><ol>
-<li>安装 Docker Engine、containerd 和 Docker Compose<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stata">sudo apt-get install docker-ce docker-ce-<span class="hljs-keyword">cli</span> containerd.io docker-buildx-<span class="hljs-keyword">plugin</span> docker-compose-<span class="hljs-keyword">plugin</span><br></code></pre></td></tr></table></figure></li>
-<li>运行测试镜像，验证安装成功<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">sudo docker <span class="hljs-built_in">run</span> hello-world<br></code></pre></td></tr></table></figure></li>
-</ol>
-<h1 id="安装与使用docker-compose"><a href="#安装与使用docker-compose" class="headerlink" title="安装与使用docker compose"></a>安装与使用docker compose</h1><h2 id="安装-docker-compose"><a href="#安装-docker-compose" class="headerlink" title="安装 docker compose"></a>安装 docker compose</h2><ul>
-<li>对于 Ubuntu 和 Debian：<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">sudo apt-<span class="hljs-built_in">get</span> install docker-compose-plugin<br></code></pre></td></tr></table></figure></li>
-<li>对于基于 RPM 的发行版：<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmake">yum <span class="hljs-keyword">install</span> docker-compose-plugin<br></code></pre></td></tr></table></figure></li>
-</ul>
-<p>查看是否可以运行：</p>
-<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs applescript">docker compose <span class="hljs-built_in">version</span><br></code></pre></td></tr></table></figure>
-<p>如果能正常显示版本，则安装成功，跳过下一步；否则需配置 docker-compose 路径</p>
-<h2 id="配置-docker-compose-路径"><a href="#配置-docker-compose-路径" class="headerlink" title="配置 docker-compose 路径"></a>配置 docker-compose 路径</h2><ol>
-<li>查看 docker-compose 当前所在路径<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><span class="hljs-built_in">find</span> / -name docker-compose<br></code></pre></td></tr></table></figure>
-我得到的是<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">/root/</span>.docker<span class="hljs-regexp">/cli-plugins/</span>docker-compose<br><span class="hljs-regexp">/usr/</span>libexec<span class="hljs-regexp">/docker/</span>cli-plugins/docker-compose<br></code></pre></td></tr></table></figure></li>
-<li>在 ~&#x2F;.bashrc 中添加：<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><span class="hljs-built_in">export</span> <span class="hljs-attribute">PATH</span>=<span class="hljs-string">&quot;/usr/libexec/docker/cli-plugins:<span class="hljs-variable">$PATH</span>&quot;</span><br></code></pre></td></tr></table></figure>
-之后保存并关闭文件，运行<code>source ~/.bashrc</code>或重启终端即可。<blockquote>
-<p>具体原理在另一篇博客《可执行文件与系统PATH环境变量》中有解释。</p>
+                <h1 id="HTTP-是什么"><a href="#HTTP-是什么" class="headerlink" title="HTTP 是什么"></a>HTTP 是什么</h1><p>HTTP（HyperText Transfer Protocol），即超文本传输协议，用于客户端和服务器之间的通信。</p>
+<blockquote>
+<p>超文本：一种通过超链接将文本、图像、视频、音频等资源进行关联的文本形式，广泛应用于万维网等领域，为用户提供了非线性的信息浏览和导航方式。</p>
+</blockquote>
+<h1 id="常用请求方法"><a href="#常用请求方法" class="headerlink" title="常用请求方法"></a>常用请求方法</h1><ul>
+<li>GET：请求获取指定资源，不应该进行修改</li>
+<li>POST：向服务器提交数据，常用于创建新资源</li>
+<li>PUT：向服务器发送数据，用于更新现有资源</li>
+<li>DELETE：删除服务器上的资源<blockquote>
+<p>幂等：一个 HTTP 方法是幂等的，指的是同样的请求被执行一次与连续执行多次的效果是一样的，服务器的状态也是一样的，即幂等的方法不应该具有副作用。其中<code>GET，PUT，DELETE，HEAD</code>是幂等的，<code>POST</code>不是幂等的</p>
 </blockquote>
 </li>
-</ol>
-<h2 id="使用-docker-compose"><a href="#使用-docker-compose" class="headerlink" title="使用 docker compose"></a>使用 docker compose</h2><p>在 docker-compose.yaml 所在目录执行<code>docker compose up</code>即可启动其中所有定义的容器，通过加<code>-d</code>参数可以后台启动。</p>
-<h3 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h3><ul>
-<li>docker compose up：启动容器。根据当前目录下的配置文件创建并启动所有定义的容器。如果如果容器不存在，将会下载所需的镜像。如果容器已存在，将会重新启动它们。默认情况下，它会在前台启动，并输出容器的日志信息。</li>
-<li>docker compose down：停止并移除容器应用。停止并移除所有已经启动的容器，同时清理相关的网络和卷。</li>
-<li>docker compose ps：列出当前已启动的容器。</li>
-<li>docker compose start：启动已经创建但未运行的容器。与 docker-compose up 相比，start 命令只会启动已经创建的容器，而不会重新构建或重新创建容器。</li>
-<li>docker compose stop：停止正在运行的容器。与 docker-compose down 相比，stop 命令只会停止容器，而不会移除它们。</li>
-<li>docker compose build：构建或重新构建镜像。它会根据配置文件中定义的构建规则，构建或重新构建容器所需的镜像。</li>
 </ul>
-<blockquote>
-<p>可以通过<code>docker-compose --help</code>命令来查看完整的命令列表和使用说明。</p>
-</blockquote>
+<h1 id="HTTP-请求结构"><a href="#HTTP-请求结构" class="headerlink" title="HTTP 请求结构"></a>HTTP 请求结构</h1><h2 id="请求行（Request-Line）"><a href="#请求行（Request-Line）" class="headerlink" title="请求行（Request Line）"></a>请求行（Request Line）</h2><p>请求行包含了请求的方法（GET、POST、PUT等）、请求的目标URL和HTTP协议版本</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><span class="hljs-comment"># &lt;方法&gt;&lt;URL&gt;&lt;协议版本&gt;</span><br><span class="hljs-built_in">GET</span> /api<span class="hljs-built_in">/users </span>HTTP/1.1<br></code></pre></td></tr></table></figure>
+<h2 id="请求头（Headers）"><a href="#请求头（Headers）" class="headerlink" title="请求头（Headers）"></a>请求头（Headers）</h2><p>请求头部包含了一系列的键值对，用于传递关于请求的附加信息，如用户代理信息、请求的内容类型、授权信息等。每个键值对都以键和值之间的<strong>冒号+空格</strong>分隔，并且每个键值对占据一行。常见字段：</p>
+<ul>
+<li><p>Host<br>HOST 的值表示服务器主机的地址和端口（地址可以是域名，也可以是 IP；端口号可以省略或者手动指定）</p>
+</li>
+<li><p>Content-Length<br>Content-Length 表示 body 的数据长度，长度单位是字节</p>
+</li>
+<li><p>Content-Type<br>Content-Type 表示 body 的数据格式</p>
+</li>
+<li><p>User-Agent：指定发送请求的用户代理（客户端）的相关信息，如浏览器类型、操作系统等</p>
+</li>
+<li><p>Authorization：用于进行身份验证，包含认证凭证或令牌</p>
+</li>
+<li><p>Cookie：包含之前从服务器收到的Cookie信息，用于会话管理</p>
+</li>
+<li><p>Referer：指定当前请求的来源URL，常用于防盗链、统计分析等</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs http"><span class="hljs-attribute">Host</span><span class="hljs-punctuation">: </span>example.com<br><span class="hljs-attribute">Content-Type</span><span class="hljs-punctuation">: </span>application/json<br><span class="hljs-attribute">Authorization</span><span class="hljs-punctuation">: </span>Bearer &lt;token&gt;<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="请求主体"><a href="#请求主体" class="headerlink" title="请求主体"></a>请求主体</h2><p>请求主体是可选的，用于在POST、PUT等请求方法中传递请求的数据内容。例如，当使用POST方法提交表单数据时，请求主体会包含表单字段的数据。请求主体的格式和内容类型由Content-Type请求头字段指示，内容类型有多重，以下是三种示例：</p>
+<ul>
+<li>JSON格式的请求主体<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs http"><span class="hljs-keyword">POST</span> <span class="hljs-string">/api/users</span> <span class="hljs-meta">HTTP/1.1</span><br><span class="hljs-attribute">Content-Type</span><span class="hljs-punctuation">: </span>application/json<br><br><span class="language-perl">&#123;<span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;John Doe&quot;</span>, <span class="hljs-string">&quot;email&quot;</span>: <span class="hljs-string">&quot;john@example.com&quot;</span>&#125;</span><br></code></pre></td></tr></table></figure></li>
+<li>XML格式的请求主体<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs http"><span class="hljs-keyword">POST</span> <span class="hljs-string">/api/data</span> <span class="hljs-meta">HTTP/1.1</span><br><span class="hljs-attribute">Content-Type</span><span class="hljs-punctuation">: </span>application/xml<br><br><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">user</span>&gt;</span></span><br><span class="language-xml">  <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>John Doe<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span></span><br><span class="language-xml">  <span class="hljs-tag">&lt;<span class="hljs-name">email</span>&gt;</span>john@example.com<span class="hljs-tag">&lt;/<span class="hljs-name">email</span>&gt;</span></span><br><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">user</span>&gt;</span></span><br></code></pre></td></tr></table></figure></li>
+<li>表单数据格式的请求主体<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs http"><span class="hljs-keyword">POST</span> <span class="hljs-string">/api/submit</span> <span class="hljs-meta">HTTP/1.1</span><br><span class="hljs-attribute">Content-Type</span><span class="hljs-punctuation">: </span>application/x-www-form-urlencoded<br><br><span class="language-ini"><span class="hljs-attr">username</span>=johndoe&amp;age=<span class="hljs-number">25</span></span><br></code></pre></td></tr></table></figure></li>
+</ul>
+<h1 id="常见状态码"><a href="#常见状态码" class="headerlink" title="常见状态码"></a>常见状态码</h1><p>状态码表示访问一个页面的结果（如访问成功、失败或其它一些情况）</p>
+<ul>
+<li>1xx<br>提示信息，表示目前是协议处理的中间状态，还需要后续操作</li>
+<li>2xx<br>成功，报文已经收到并被正确处理。如：200、204、206</li>
+<li>3xx<br>重定向，资源位置发生变动，需要客户端重新发送请求。如：301、302、304</li>
+<li>4xx<br>客户端错误，请求报文有误，服务器无法处理。如：400、403、404</li>
+<li>5xx<br>服务器错误，服务器在处理请求时内部发生了错误。如：500、501、502、503</li>
+</ul>
 
                 
               </div>
@@ -327,11 +331,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/Linux/" class="print-no-link">#Linux</a>
-      
-        <a href="/tags/docker/" class="print-no-link">#docker</a>
-      
-        <a href="/tags/docker-compose/" class="print-no-link">#docker compose</a>
+        <a href="/tags/HTTP/" class="print-no-link">#HTTP</a>
       
     </div>
   
@@ -343,8 +343,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>使用docker compose up启动本地环境</div>
-      <div>http://wj00037.github.io/2023/09/22/使用docker-compose-up启动本地环境/</div>
+      <div>HTTP简介</div>
+      <div>http://wj00037.github.io/2023/10/23/HTTP简介/</div>
     </div>
     <div class="license-meta">
       
@@ -356,7 +356,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年9月22日</div>
+          <div>2023年10月23日</div>
         </div>
       
       
@@ -388,18 +388,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/09/28/Dockerfile-%E8%AF%A6%E8%A7%A3/" title="Dockerfile 详解">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Dockerfile 详解</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/09/08/%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6%E4%B8%8E%E7%B3%BB%E7%BB%9FPATH%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/" title="可执行文件与系统PATH环境变量">
-                        <span class="hidden-mobile">可执行文件与系统PATH环境变量</span>
+                      <a href="/2023/09/28/Dockerfile-%E8%AF%A6%E8%A7%A3/" title="Dockerfile 详解">
+                        <span class="hidden-mobile">Dockerfile 详解</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
