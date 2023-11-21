@@ -24,7 +24,7 @@
 <meta property="og:description" content="一、搭建个人 GitHub Pages 使用 GitHub 创建个人仓库，此仓库用于存放个人博客界面，仓库名为&lt;GitHub用户名&gt;.github.io 在仓库下创建名为index.html的静态HTML文件来验证个人博客搭建是否成功12345678910&lt;!DOCTYPE html&gt;&lt;html lang&#x3D;&quot;en&quot;&gt;&lt;head&gt;">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-08-02T13:43:59.000Z">
-<meta property="article:modified_time" content="2023-11-21T02:03:05.795Z">
+<meta property="article:modified_time" content="2023-11-21T02:10:46.127Z">
 <meta property="article:author" content="j30049383">
 <meta property="article:tag" content="hexo">
 <meta name="twitter:card" content="summary_large_image">
@@ -294,7 +294,7 @@
 <li>使用 <code>hexo new &quot;title&quot;</code> 命令新建名为 <code>title</code> 的文章，在 <code>my_blog\source\posts</code> 下自动生成 <code>.md</code> 文件（重要）</li>
 <li>使用 <code>Markdown</code> 语法编辑此 <code>.md</code> 文件，即可编辑文章内容</li>
 <li>使用 <code>hexo s</code> 启动服务，在  <a target="_blank" rel="noopener" href="http://localhost:4000/">http://localhost:4000/</a> 界面浏览文章，期间每次编辑并保存 <code>.md</code> 文件后都可以通过刷新此界面浏览更新后的文章<blockquote>
-<p>如果希望插入图片，则需先将图片放入本地对应文章的对应文件夹下，使用<code>hexo g</code>将图片推送到远程仓库，之后之后就可以正常显示图片了<br>由于仓库内图片与文本在同一目录下，故不需要添加图片路径：<code>![图片描述](图片文件名称)</code></p>
+<p>如果希望插入图片，则需先将图片放入本地对应文章的对应文件夹下，使用<code>hexo g &amp;&amp; hexo d</code>将图片推送到远程仓库，之后之后就可以正常显示图片了<br>图片路径使用在仓库中的绝对路径：<code>![图片描述](path/to/图片)</code></p>
 </blockquote>
 </li>
 </ul>
