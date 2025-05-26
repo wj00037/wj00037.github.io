@@ -1,0 +1,811 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="537">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="引言数据库，顾名思义就是存放数据的容器。最常见的数据库类型是关系型数据库管理系统（RDBMS）：RDBMS 是 SQL 的基础，同样也是所有现代数据库系统的基础，比如 MS SQL Server, IBM DB2, Oracle, MySQL 以及 Microsoft Access等等。RDBMS 中的数据存储在被称为表（tables）的数据库对象中。 表是相关的数据项的集合，它由列和行组成。一个">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SQL基础语言">
+<meta property="og:url" content="http://wj00037.github.io/2025/03/05/SQL%E5%9F%BA%E7%A1%80%E8%AF%AD%E8%A8%80/index.html">
+<meta property="og:site_name" content="537&#39;s Blog">
+<meta property="og:description" content="引言数据库，顾名思义就是存放数据的容器。最常见的数据库类型是关系型数据库管理系统（RDBMS）：RDBMS 是 SQL 的基础，同样也是所有现代数据库系统的基础，比如 MS SQL Server, IBM DB2, Oracle, MySQL 以及 Microsoft Access等等。RDBMS 中的数据存储在被称为表（tables）的数据库对象中。 表是相关的数据项的集合，它由列和行组成。一个">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-03-05T12:12:01.000Z">
+<meta property="article:modified_time" content="2025-05-26T12:14:20.429Z">
+<meta property="article:author" content="537">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>SQL基础语言 - 537&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"wj00037.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>首页</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="SQL基础语言"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-03-05 20:12" pubdate>
+          2025年3月5日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          11 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">SQL基础语言</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><p><strong>数据库</strong>，顾名思义就是存放数据的容器。最常见的数据库类型是<strong>关系型数据库管理系统</strong>（RDBMS）：RDBMS 是 SQL 的基础，同样也是所有现代数据库系统的基础，比如 MS SQL Server, IBM DB2, Oracle, MySQL 以及 Microsoft Access等等。RDBMS 中的数据存储在被称为<strong>表</strong>（tables）的数据库对象中。</p>
+<p><strong>表</strong>是相关的数据项的集合，它由列和行组成。一个数据库通常包含一个或多个表，每个表由一个名字标识（例如“客户”或者“订单”）。表包含带有数据的记录(行)。</p>
+<p><strong>SQL</strong> 是用于访问和处理数据库的标准的计算机语言，可与数据库程序协同工作，但是各种各样的数据库衍生了很多不同版本的 SQL 语言，为了与 ANSI 标准相兼容，它们必须以相似的方式共同地来支持一些主要的关键词（比如 SELECT、UPDATE、DELETE、INSERT、WHERE 等等），这些就是我们要学习的SQL基础。<br>SQL主要分为两个类型：</p>
+<ul>
+<li>数据查询语言（DQL: Data Query Language）</li>
+<li>数据操纵语言（DML：Data Manipulation Language）</li>
+</ul>
+<h1 id="SQL基础语言"><a href="#SQL基础语言" class="headerlink" title="SQL基础语言"></a>SQL基础语言</h1><h2 id="CREATE-TABLE-—-创建表"><a href="#CREATE-TABLE-—-创建表" class="headerlink" title="CREATE TABLE — 创建表"></a>CREATE TABLE — 创建表</h2><p style="color:blue">语法：</p>
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> 表名称<br>(<br>列名称<span class="hljs-number">1</span> 数据类型,<br>列名称<span class="hljs-number">2</span> 数据类型,<br>列名称<span class="hljs-number">3</span> 数据类型,<br>....<br>);<br></code></pre></td></tr></table></figure>
+
+<p>数据类型（data_type）规定了列可容纳何种数据类型。下面的表格包含了SQL中最常用的数据类型：</p>
+<table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>integer(size),int(size),smallint(size),tinyint(size)</td>
+<td>仅容纳整数、在括号内规定数字的最大位数</td>
+</tr>
+<tr>
+<td>decimal(size,d),numeric(size,d)</td>
+<td>容纳带有小数的数字、“size” 规定数字的最大位数、“d” 规定小数点右侧的最大位数</td>
+</tr>
+<tr>
+<td>char(size)</td>
+<td>容纳固定长度的字符串（可容纳字母、数字以及特殊字符）、在括号中规定字符串的长度</td>
+</tr>
+<tr>
+<td>varchar(size)</td>
+<td>容纳可变长度的字符串（可容纳字母、数字以及特殊的字符）、在括号中规定字符串的最大长度</td>
+</tr>
+<tr>
+<td>date(yyyymmdd)</td>
+<td>容纳日期</td>
+</tr>
+</tbody></table>
+<p style="color:blue">实例：</p>
+
+<p>本例演示了创建名为 “Persons” 的表，该表包含 5 个列，列名分别是：“Id_P”、“LastName”、“FirstName”、“Address” 以及 “City”：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> Persons<br>(<br>Id_P <span class="hljs-type">int</span>,<br>LastName <span class="hljs-type">varchar</span>(<span class="hljs-number">255</span>),<br>FirstName <span class="hljs-type">varchar</span>(<span class="hljs-number">255</span>),<br>Address <span class="hljs-type">varchar</span>(<span class="hljs-number">255</span>),<br>City <span class="hljs-type">varchar</span>(<span class="hljs-number">255</span>)<br>);<br></code></pre></td></tr></table></figure>
+
+<h2 id="INSERT-–-向表中插入数据"><a href="#INSERT-–-向表中插入数据" class="headerlink" title="INSERT – 向表中插入数据"></a>INSERT – 向表中插入数据</h2><p style="color:blue">语法：</p>
+
+<p>向表格中插入新的行：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> 表名称 <span class="hljs-keyword">VALUES</span> (值<span class="hljs-number">1</span>, 值<span class="hljs-number">2</span>,....);<br></code></pre></td></tr></table></figure>
+
+<p>在指定列中插入数据：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> 表名称 (列<span class="hljs-number">1</span>, 列<span class="hljs-number">2</span>,...) <span class="hljs-keyword">VALUES</span> (值<span class="hljs-number">1</span>, 值<span class="hljs-number">2</span>,....);<br></code></pre></td></tr></table></figure>
+
+<p style="color:blue">实例：</p>
+
+<p>插入新的行：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> Persons <span class="hljs-keyword">VALUES</span> (<span class="hljs-number">1</span>, <span class="hljs-string">&#x27;Gates&#x27;</span>, <span class="hljs-string">&#x27;Bill&#x27;</span>, <span class="hljs-string">&#x27;Xuanwumen 10&#x27;</span>, <span class="hljs-string">&#x27;Beijing&#x27;</span>);<br></code></pre></td></tr></table></figure>
+
+<p>在指定列中插入数据：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> Persons (LastName, Address) <span class="hljs-keyword">VALUES</span> (<span class="hljs-string">&#x27;Wilson&#x27;</span>, <span class="hljs-string">&#x27;Champs-Elysees&#x27;</span>);<br></code></pre></td></tr></table></figure>
+
+<h2 id="SELECT-–-查询数据"><a href="#SELECT-–-查询数据" class="headerlink" title="SELECT – 查询数据"></a>SELECT – 查询数据</h2><p style="color:blue">语法：</p>
+
+<p>查询指定列：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> 列<span class="hljs-number">1</span>,列<span class="hljs-number">2</span>,... <span class="hljs-keyword">FROM</span> 表名称;<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p><code>SELECT *</code>代表查询所有列，下同。</p>
+</blockquote>
+<p style="color:blue">实例：</p>
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">FROM</span> Persons;<br><span class="hljs-keyword">SELECT</span> LastName,FirstName <span class="hljs-keyword">FROM</span> Persons;<br></code></pre></td></tr></table></figure>
+
+<h2 id="DISTINCT-–-去除重复值"><a href="#DISTINCT-–-去除重复值" class="headerlink" title="DISTINCT – 去除重复值"></a>DISTINCT – 去除重复值</h2><p style="color:blue">语法：</p>
+
+<p>使查询到的结果去除重复值：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">DISTINCT</span> 列名称 <span class="hljs-keyword">FROM</span> 表名称;<br></code></pre></td></tr></table></figure>
+
+<p style="color:blue">实例：</p>
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">DISTINCT</span> LASTNAME <span class="hljs-keyword">FROM</span> Persons;<br></code></pre></td></tr></table></figure>
+
+<h2 id="WHERE-–-条件过滤"><a href="#WHERE-–-条件过滤" class="headerlink" title="WHERE – 条件过滤"></a>WHERE – 条件过滤</h2><p>如果需要从表中选取指定的数据，可将 WHERE 子句添加到 SELECT 语句。</p>
+<p style="color:blue">语法：</p>
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> 列名称 <span class="hljs-keyword">FROM</span> 表名称 <span class="hljs-keyword">WHERE</span> 列 运算符 值;<br></code></pre></td></tr></table></figure>
+
+<p>WHERE子句中可使用如下运算符：</p>
+<table>
+<thead>
+<tr>
+<th>操作符</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&#x3D;</td>
+<td>等于</td>
+</tr>
+<tr>
+<td>&lt;&gt;</td>
+<td>不等于</td>
+</tr>
+<tr>
+<td>&gt;</td>
+<td>大于</td>
+</tr>
+<tr>
+<td>&lt;</td>
+<td>小于</td>
+</tr>
+<tr>
+<td>&gt;&#x3D;</td>
+<td>大于等于</td>
+</tr>
+<tr>
+<td>&lt;&#x3D;</td>
+<td>小于等于</td>
+</tr>
+<tr>
+<td>BETWEEN</td>
+<td>在某个范围内</td>
+</tr>
+<tr>
+<td>LIKE</td>
+<td>搜索某种模式</td>
+</tr>
+</tbody></table>
+<p style="color:blue">实例：</p>
+
+<p>如果只希望选取居住在城市 “Beijing” 中的人，可以向 SELECT 语句添加 WHERE 子句：</p>
+<figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs n1ql"><span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> Persons <span class="hljs-keyword">WHERE</span> City=<span class="hljs-string">&#x27;Beijing&#x27;</span>;<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注意：SQL 使用单引号来环绕文本值（大部分数据库系统也接受双引号）。如果是数值，请不要使用引号。</p>
+</blockquote>
+<h2 id="AND-OR-–-运算符"><a href="#AND-OR-–-运算符" class="headerlink" title="AND &amp; OR – 运算符"></a>AND &amp; OR – 运算符</h2><p>AND 和 OR 可在 WHERE 子语句中把两个或多个条件结合起来。</p>
+<ul>
+<li>如果第一个条件和第二个条件都成立，则 AND 运算符显示一条记录。</li>
+<li>如果第一个条件和第二个条件中只要有一个成立，则 OR 运算符显示一条记录。</li>
+</ul>
+<p style="color:blue">语法：</p>
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">FROM</span> 表名称 <span class="hljs-keyword">WHERE</span> 列 运算符 值 <span class="hljs-keyword">AND</span> 列 运算符 值;<br><span class="hljs-keyword">SELECT</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">FROM</span> 表名称 <span class="hljs-keyword">WHERE</span> 列 运算符 值 <span class="hljs-keyword">OR</span> 列 运算符 值;<br></code></pre></td></tr></table></figure>
+
+<p style="color:blue">实例：</p>
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">FROM</span> Persons <span class="hljs-keyword">WHERE</span> FirstName<span class="hljs-operator">=</span><span class="hljs-string">&#x27;Thomas&#x27;</span> <span class="hljs-keyword">AND</span> LastName<span class="hljs-operator">=</span><span class="hljs-string">&#x27;Carter&#x27;</span>;<br><span class="hljs-keyword">SELECT</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">FROM</span> Persons <span class="hljs-keyword">WHERE</span> firstname<span class="hljs-operator">=</span><span class="hljs-string">&#x27;Thomas&#x27;</span> <span class="hljs-keyword">OR</span> lastname<span class="hljs-operator">=</span><span class="hljs-string">&#x27;Carter&#x27;</span>;<br><span class="hljs-keyword">SELECT</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">FROM</span> Persons <span class="hljs-keyword">WHERE</span> (FirstName<span class="hljs-operator">=</span><span class="hljs-string">&#x27;Thomas&#x27;</span> <span class="hljs-keyword">OR</span> FirstName<span class="hljs-operator">=</span><span class="hljs-string">&#x27;William&#x27;</span>) <span class="hljs-keyword">AND</span> LastName<span class="hljs-operator">=</span><span class="hljs-string">&#x27;Carter&#x27;</span>;<br></code></pre></td></tr></table></figure>
+
+<h2 id="ORDER-BY-–-排序"><a href="#ORDER-BY-–-排序" class="headerlink" title="ORDER BY – 排序"></a>ORDER BY – 排序</h2><p>ORDER BY 语句用于根据指定的一个或多个列对结果集进行排序，默认按照升序对记录进行排序，如果希望按照降序对记录进行排序，可以使用 DESC 关键字。</p>
+<p style="color:blue">语法：</p>
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">FROM</span> 表名称 <span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span> 列<span class="hljs-number">1</span>,列<span class="hljs-number">2</span> <span class="hljs-keyword">DESC</span>;<br></code></pre></td></tr></table></figure>
+
+<p style="color:blue">实例：</p>
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">FROM</span> Persons <span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span> LASTNAME;<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>空值（NULL）默认排序在有值行之后。</p>
+</blockquote>
+<h2 id="UPDATE-–-更新数据"><a href="#UPDATE-–-更新数据" class="headerlink" title="UPDATE – 更新数据"></a>UPDATE – 更新数据</h2><p>Update 语句用于修改表中的数据。</p>
+<p style="color:blue">语法：</p>
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">UPDATE</span> 表名称 <span class="hljs-keyword">SET</span> 列名称 <span class="hljs-operator">=</span> 新值 <span class="hljs-keyword">WHERE</span> 列名称 <span class="hljs-operator">=</span> 某值;<br></code></pre></td></tr></table></figure>
+
+<p style="color:blue">实例：</p>
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">UPDATE</span> Persons <span class="hljs-keyword">SET</span> FirstName <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;Fred&#x27;</span> <span class="hljs-keyword">WHERE</span> LastName <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;Wilson&#x27;</span>;<br><span class="hljs-keyword">UPDATE</span> Persons <span class="hljs-keyword">SET</span> ID_P <span class="hljs-operator">=</span> <span class="hljs-number">6</span>,city<span class="hljs-operator">=</span> <span class="hljs-string">&#x27;London&#x27;</span> <span class="hljs-keyword">WHERE</span> LastName <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;Wilson&#x27;</span>;<br></code></pre></td></tr></table></figure>
+
+<h2 id="DELETE-–-删除数据"><a href="#DELETE-–-删除数据" class="headerlink" title="DELETE – 删除数据"></a>DELETE – 删除数据</h2><p>DELETE 语句用于删除表中的行。</p>
+<p style="color:blue">语法：</p>
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">DELETE</span> <span class="hljs-keyword">FROM</span> 表名称 <span class="hljs-keyword">WHERE</span> 列名称 <span class="hljs-operator">=</span> 值;<br></code></pre></td></tr></table></figure>
+
+<p style="color:blue">实例：</p>
+
+<p>删除某行：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">DELETE</span> <span class="hljs-keyword">FROM</span> Persons <span class="hljs-keyword">WHERE</span> LastName <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;Wilson&#x27;</span>;<br></code></pre></td></tr></table></figure>
+
+<p>删除所有行（表的结构、属性和索引仍然保留）：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">DELETE</span> <span class="hljs-keyword">FROM</span> 表名称;<br></code></pre></td></tr></table></figure>
+
+<h2 id="TRUNCATE-TABLE-–-清除表数据"><a href="#TRUNCATE-TABLE-–-清除表数据" class="headerlink" title="TRUNCATE TABLE – 清除表数据"></a>TRUNCATE TABLE – 清除表数据</h2><p>TRUNCATE TABLE 可以除去表内的数据，但不删除表本身。</p>
+<p style="color:blue">语法：</p>
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">TRUNCATE</span> <span class="hljs-keyword">TABLE</span> 表名称;<br></code></pre></td></tr></table></figure>
+
+<p style="color:blue">实例：</p>
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">TRUNCATE</span> <span class="hljs-keyword">TABLE</span> persons;<br></code></pre></td></tr></table></figure>
+
+<h2 id="DROP-TABLE-–-删除表"><a href="#DROP-TABLE-–-删除表" class="headerlink" title="DROP TABLE – 删除表"></a>DROP TABLE – 删除表</h2><p style="color:blue">语法：</p>
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">DROP</span> <span class="hljs-keyword">TABLE</span> 表名称;<br></code></pre></td></tr></table></figure>
+
+<p style="color:blue">实例：</p>
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">DROP</span> <span class="hljs-keyword">TABLE</span> persons;<br></code></pre></td></tr></table></figure>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>SQL基础语言</div>
+      <div>http://wj00037.github.io/2025/03/05/SQL基础语言/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>537</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年3月5日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/02/10/%E4%BD%BF%E7%94%A8kind%E6%90%AD%E5%BB%BAk8s%E9%9B%86%E7%BE%A4/" title="使用kind搭建k8s集群">
+                        <span class="hidden-mobile">使用kind搭建k8s集群</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
